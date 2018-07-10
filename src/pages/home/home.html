@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>{{produto.nome_produto}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,13 +9,21 @@
         <img src="assets/imgs/produto.png"/>
         <ion-card-content>
           <ion-card-title>
-              {{produto.nome_produto}}
-            </ion-card-title>
+              <strong>{{produto.nome_produto}}</strong>
+          </ion-card-title>
           <p>
             {{produto.descricao_produto}}
           </p>
           <p>
+            Quantidade disponível: {{produto.quantidade_disponivel}} 
+          <p>
             Preço: <strong>R${{produto.preco_produto}},00</strong>
+          </p>
+          <p>
+            Quantidade: <button class="quant" (click)="quantMenos()">-</button>{{quant}}<button class="quant" (click)="quantMais()">+</button>
+          </p>
+          <p>
+            Total: <strong>R${{valor_total}},00</strong>
           </p>
         </ion-card-content>
     </ion-card>
@@ -24,5 +32,6 @@
     <button color="dark" ion-button (click)="comprar()">Efetuar pagamento</button>
     <button ion-button (click)="voltar()">Voltar</button>
   </div>
+  <button (click)="quantidade()">qntTeste</button>
  
 </ion-content>

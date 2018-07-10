@@ -13,6 +13,8 @@ import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails} from 
 export class HomePage implements OnInit{
   public codigo: any;
   public produto: any = {};
+  public quant = 1;
+  public valor_total: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -34,7 +36,8 @@ export class HomePage implements OnInit{
    this.http.get('pagseguro/'+this.codigo)   
    .subscribe(data => {
      this.produto = data;
-     console.log(this.produto);   
+     console.log(this.produto);  
+     this.valor_total = this.produto.preco_produto; 
      // this.pagseg.dados.amount = this.produto.preco_produto; 
      // this.pagseg.dados.codigo_produto = this.codigo;
      // this.pagseg.dados.nome_produto = this.produto.nome_produto;
@@ -58,10 +61,11 @@ export class HomePage implements OnInit{
         merchantPrivacyPolicyURL: '',
         merchantUserAgreementURL: ''
       })).then(() => {
-        let details = new PayPalPaymentDetails(this.produto.preco_produto+'.00', '0.00', '0.00'); //especializar
-        let payment = new PayPalPayment(this.produto.preco_produto, 'BRL', this.produto.nome_produto, 'Sale', details); //especializar
+        let details = new PayPalPaymentDetails(this.valor_total+'.00', '0.00', '0.00'); //especializar
+        let payment = new PayPalPayment(this.valor_total, 'BRL', this.produto.nome_produto, 'Sale', details); //especializar
         this.payPal.renderSinglePaymentUI(payment).then((response) =>{
-         //resposta para caso pagamento seja efetuado com sucesso
+        //resposta para caso pagamento seja efetuado com sucesso
+         this.quantidade();         
          this.navCtrl.setRoot(ProdutosPage);
          this.alertaCompraEfetuada();
 
@@ -71,6 +75,18 @@ export class HomePage implements OnInit{
         })
       })
     })
+  }
+
+  quantidade(){
+    let update ={
+      quantidade_disponivel: this.produto.quantidade_disponivel - this.quant,
+    }
+
+    this.http.update('pagseguro/1', update)
+      .subscribe(data => {
+       
+    });
+
   }
 
   voltar(){
@@ -84,5 +100,19 @@ export class HomePage implements OnInit{
       buttons: ['Ok']
     });
     alert.present();
+  }
+
+  quantMais(){
+    if(this.quant < this.produto.quantidade_disponivel){
+      this.quant ++;
+      this.valor_total = this.produto.preco_produto * this.quant;
+    }
+  }
+
+  quantMenos(){
+    if(this.quant > 1){
+      this.quant --;
+      this.valor_total = this.valor_total - this.produto.preco_produto;
+    }
   }
 }

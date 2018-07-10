@@ -19,4 +19,28 @@ export class HttpServicesProvider {
 
   }
 
+  save(endpoint, resources){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    
+    let options = new RequestOptions({ headers: headers});
+    
+    return this.http.post(`${this.url}/${endpoint}`, resources , options)
+      .map(res => {
+        return res.json()
+      });
+  }
+
+  update(endpoint, resources){
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers});
+    return this.http.put(`${this.url}/${endpoint}`, resources , options)
+      .map(res => 
+        {res.json})
+      
+  }
+
 }

@@ -7,17 +7,18 @@
 </ion-header>
 
 
-<ion-content padding>
-    <ul>
-        <li  class="lista" *ngFor="let p of produtos">
+<ion-content>
+    
+        <ion-card  class="lista" *ngFor="let p of produtos">
           <div class="info">
+            <img src="assets/imgs/barcode.png"/>
             <h1>{{p.nome_produto}}</h1>
             <p>R${{p.preco_produto}},00</p>
           </div>
           <div class="botao">
-            <button ion-button  (click)="getInfoProduto(p.codigo)">Comprar</button>
+            <button ion-button  (click)="getInfoProduto(p.codigo)">Detalhes</button>
           </div>
-        </li>
-      </ul>
+        </ion-card>
+      
 
 </ion-content>
