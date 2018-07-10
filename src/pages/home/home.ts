@@ -1,7 +1,8 @@
+import { ProdutosPage } from './../produtos/produtos';
 import { HttpServicesProvider } from './../../providers/http-services/http-services';
 
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails} from '@ionic-native/paypal';
 
 @Component({
@@ -16,7 +17,8 @@ export class HomePage implements OnInit{
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public payPal: PayPal,
-              public http: HttpServicesProvider 
+              public http: HttpServicesProvider,
+              private alertCtrl: AlertController 
               ) {
 
   //PEGANDO CODIGO DO PRODUTO
@@ -50,7 +52,7 @@ export class HomePage implements OnInit{
 
     }).then(() =>{
       this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
-        acceptCreditCards: false,
+        acceptCreditCards: true,
         languageOrLocale: 'pt-BR',
         merchantName: 'Leonardo Pedrosa',
         merchantPrivacyPolicyURL: '',
@@ -59,12 +61,28 @@ export class HomePage implements OnInit{
         let details = new PayPalPaymentDetails(this.produto.preco_produto+'.00', '0.00', '0.00'); //especializar
         let payment = new PayPalPayment(this.produto.preco_produto, 'BRL', this.produto.nome_produto, 'Sale', details); //especializar
         this.payPal.renderSinglePaymentUI(payment).then((response) =>{
-          console.log('pagamento efetuado com sucesso');
+         //resposta para caso pagamento seja efetuado com sucesso
+         this.navCtrl.setRoot(ProdutosPage);
+         this.alertaCompraEfetuada();
+
         }, () =>{
+          //resposta para erro no pagamento
           console.log('erro ao redenrizar pagamento do paypal');
         })
       })
     })
   }
 
+  voltar(){
+    this.navCtrl.setRoot(ProdutosPage);
+  }
+
+  alertaCompraEfetuada() {
+    let alert = this.alertCtrl.create({
+      title: 'Olá, nome usuário',
+      subTitle: 'Sua compra foi efetuada com sucesso. Parabens! (:',
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
 }
