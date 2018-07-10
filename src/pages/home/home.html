@@ -6,6 +6,10 @@
 
 <ion-content padding>
     <ion-card>
+      <div class="favorito" (click)="favoritar()">
+        <img [hidden]="favorito != 'favorito'" src="assets/icon/favorito.png"/>
+        <img [hidden]="favorito != 'favoritado'" src="assets/icon/favoritado.png"/>
+      </div> 
         <img src="assets/imgs/produto.png"/>
         <ion-card-content>
           <ion-card-title>

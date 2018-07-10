@@ -2,7 +2,7 @@ import { ProdutosPage } from './../produtos/produtos';
 import { HttpServicesProvider } from './../../providers/http-services/http-services';
 
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails} from '@ionic-native/paypal';
 
 @Component({
@@ -15,12 +15,14 @@ export class HomePage implements OnInit{
   public produto: any = {};
   public quant = 1;
   public valor_total: any;
+  public favorito = 'favorito';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public payPal: PayPal,
               public http: HttpServicesProvider,
-              private alertCtrl: AlertController 
+              private alertCtrl: AlertController,
+              private toastCtrl: ToastController
               ) {
 
   //PEGANDO CODIGO DO PRODUTO
@@ -114,5 +116,24 @@ export class HomePage implements OnInit{
       this.quant --;
       this.valor_total = this.valor_total - this.produto.preco_produto;
     }
+  }
+
+  favoritar(){
+    if(this.favorito == 'favorito'){
+      this.favorito = 'favoritado'
+      this.presentToast(this.produto.nome_produto+ ' foi adicionado aos favoritos.');
+      
+    }else{
+      this.favorito = 'favorito'
+     
+    }
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2500
+    });
+    toast.present();
   }
 }
