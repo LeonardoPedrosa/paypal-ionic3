@@ -1,3 +1,5 @@
+import { ProdutosPage } from './../pages/produtos/produtos';
+import { PayPal } from '@ionic-native/paypal';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -10,6 +12,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpServicesProvider } from '../providers/http-services/http-services';
+import { Http, HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -17,10 +21,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
+    ProdutosPage,
     TabsPage
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -29,12 +35,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
+    ProdutosPage,
     TabsPage
   ],
   providers: [
+    PayPal,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    HttpServicesProvider
   ]
 })
 export class AppModule {}
