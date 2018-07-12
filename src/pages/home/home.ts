@@ -3,7 +3,7 @@ import { HttpServicesProvider } from './../../providers/http-services/http-servi
 
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
-import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails} from '@ionic-native/paypal';
+import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails, PayPalItem} from '@ionic-native/paypal';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +13,10 @@ import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails} from 
 export class HomePage implements OnInit{
   public codigo: any;
   public produto: any = {};
+  public usuario: any = {};
   public quant = 1;
+  public div_dados = false;
+  public alerta = false;
   public valor_total: any;
   public favorito = 'favorito';
 
@@ -47,6 +50,13 @@ export class HomePage implements OnInit{
      // console.log(this.pagseg.dados.preco_produto)
    });
 
+   //CHAMANDO DADOS DO USUARIO
+   this.http.get('usuario/1')
+    .subscribe(data =>{
+      this.usuario = data;
+      console.log(this.usuario);
+    })
+
   }
 
  
@@ -63,6 +73,7 @@ export class HomePage implements OnInit{
         merchantPrivacyPolicyURL: '',
         merchantUserAgreementURL: ''
       })).then(() => {
+       
         let details = new PayPalPaymentDetails(this.valor_total+'.00', '0.00', '0.00'); //especializar
         let payment = new PayPalPayment(this.valor_total, 'BRL', this.produto.nome_produto, 'Sale', details); //especializar
         this.payPal.renderSinglePaymentUI(payment).then((response) =>{
@@ -91,13 +102,15 @@ export class HomePage implements OnInit{
 
   }
 
-  // voltar(){
-  //   this.navCtrl.setRoot(ProdutosPage);
-  // }
+  //MELHORAR CHAMADA DE ITENS
+  item(){
+    let item = new PayPalItem(this.produto.nome_produto, this.quant, this.valor_total, 'BRL');
+    console.log(item)
+  }
 
   alertaCompraEfetuada() {
     let alert = this.alertCtrl.create({
-      title: 'Ol�, nome usu�rio',
+      title: 'Olá, nome usuário',
       subTitle: 'Sua compra foi efetuada com sucesso. Parabens! (:',
       buttons: ['Ok']
     });
@@ -136,4 +149,28 @@ export class HomePage implements OnInit{
     });
     toast.present();
   }
+
+  dados(){
+    if(this.alerta == false){
+     this.alertaDados();
+    }
+    this.div_dados = true;
+  }
+
+  voltar(){
+    this.div_dados = false;
+  }
+
+  alertaDados() {
+    this.alerta = true;
+    let alert = this.alertCtrl.create({
+      title: 'Olá, '+this.usuario.nome,
+      subTitle: 'Estamos quase finalizando! (: Vamos checar seus dados antes?',
+      buttons: ['Sim']
+    });
+    alert.present();
+  }
+
+  ///ENVIO DE E-MAIL APÓS COMPRA REALIZADA COM SUCESSO
+
 }

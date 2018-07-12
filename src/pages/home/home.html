@@ -4,8 +4,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    <ion-card>
+<ion-content>
+    <ion-card [hidden]="div_dados != false">
       <div class="favorito" (click)="favoritar()">
         <img [hidden]="favorito != 'favorito'" src="assets/icon/favorito.png"/>
         <img [hidden]="favorito != 'favoritado'" src="assets/icon/favoritado.png"/>
@@ -19,9 +19,9 @@
             {{produto.descricao_produto}}
           </p>
           <p>
-            Quantidade dispon�vel: {{produto.quantidade_disponivel}} 
+            Quantidade disponível: {{produto.quantidade_disponivel}} 
           <p>
-            Pre�o: <strong>R${{produto.preco_produto}},00</strong>
+            Preço: <strong>R${{produto.preco_produto}},00</strong>
           </p>
           <p>
             Quantidade: <button class="quant" (click)="quantMenos()">-</button>{{quant}}<button class="quant" (click)="quantMais()">+</button>
@@ -33,9 +33,55 @@
     </ion-card>
 
   <div class="btn">
-    <button color="dark" ion-button (click)="comprar()">Efetuar pagamento</button>
-    <!-- <button ion-button (click)="voltar()">Voltar</button> -->
+      <button color="dark" ion-button (click)="dados()" [hidden]="div_dados != false">Comprar</button>
+    
   </div>
+
   <button (click)="quantidade()">qntTeste</button>
+  <button (click)="item()">itemTeste</button>
+
+  <div class="dados_usuario" [hidden]="div_dados != true">
+    <!-- Dados produto -->
+      <ion-card>
+         <h3>Dados do produto:</h3>
+            <ion-card-content>
+                  <ion-item>
+                    <ion-thumbnail item-start>
+                      <img src="assets/imgs/produto.png">
+                    </ion-thumbnail>
+                    <h2>{{produto.nome_produto}}</h2>                  
+                    <p>Quantidade: <strong>{{quant}}</strong></p>
+                    <p>Valor total:<strong>R${{valor_total}},00</strong></p>
+                  </ion-item>
+          </ion-card-content>
+      </ion-card>
+
+    <!-- Dados usuario -->
+    <ion-card>
+        <h3>Seus dados:</h3>
+          <ion-card-content>
+                <ul>
+                  <li><p>Nome: <strong>{{usuario.nome}}</strong></p></li>
+                  <li><p>E-mail: <strong>{{usuario.email}}</strong></p></li>
+                  <li><p>Telefone: <strong>{{usuario.telefone}}</strong></p></li>
+                </ul>
+          </ion-card-content>
+    </ion-card>
+
+    <!-- Dados de endereço para entrega -->
+    <ion-card>
+        <h3>Endereço de entrega:</h3>
+          <ion-card-content>
+            <p>{{usuario.endereco}}</p>
+            <p>{{usuario.bairro}}-{{usuario.cidade}}-{{usuario.estado}}</p>
+            <p>{{usuario.cep}}</p>
+          </ion-card-content>
+    </ion-card>
+
+    <div class="btn">
+      <button color="dark" ion-button (click)="comprar()">Efetuar pagamento</button>
+      <button ion-button (click)="voltar()" outline>Voltar</button>
+    </div>
+  </div>
  
 </ion-content>

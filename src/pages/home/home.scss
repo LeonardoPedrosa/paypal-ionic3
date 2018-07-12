@@ -5,4 +5,8 @@ ion-card img{width: 60%; margin: 0 auto}
 .btn{text-align: center}
 .quant{width: 35px;height: 35px;background: #399b1f; font-size: 20px; color:white; margin: 0 10px}
 .card{position: relative}
+ul{padding: 0}
+li{display: block}
+.item{padding-left: 0 !important}
+.card h3{border: 1px solid gray; text-align: center; padding: 10px 0;text-transform: uppercase; background: black; color:white}
 }
