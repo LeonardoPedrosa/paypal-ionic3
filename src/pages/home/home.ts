@@ -84,16 +84,16 @@ export class HomePage implements OnInit{
       quantidade_disponivel: this.produto.quantidade_disponivel - this.quant,
     }
 
-    this.http.update('pagseguro/1', update)
+    this.http.update('pagseguro/'+this.codigo, update)
       .subscribe(data => {
        
     });
 
   }
 
-  voltar(){
-    this.navCtrl.setRoot(ProdutosPage);
-  }
+  // voltar(){
+  //   this.navCtrl.setRoot(ProdutosPage);
+  // }
 
   alertaCompraEfetuada() {
     let alert = this.alertCtrl.create({

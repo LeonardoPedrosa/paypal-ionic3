@@ -8,22 +8,24 @@ import { HomePage } from '../home/home';
   selector: 'page-produtos',
   templateUrl: 'produtos.html',
 })
-export class ProdutosPage implements OnInit {
+export class ProdutosPage{
 
   public produtos: any;
   public produto: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public http: HttpServicesProvider) {
+    
   }
 
-  ngOnInit(){
+  //METODO PARA DAR REFRESH SEMPRE QUE INICIAR A PAGINA
+  ionViewDidEnter(){
     this.http.get('pagseguro')   
-      .subscribe(data => {
-        this.produtos = data;
-        console.log(this.produtos);       
-      });
-    }
-
+    .subscribe(data => {
+      this.produtos = data;
+      console.log(this.produtos);       
+    });
+  }
+  
   //PEGANDO O CODIGO DO PRODUTO E REPASSANDO PARA PRÓXIMA ETAPA
   getInfoProduto(codigo){ 
     this.http.get('pagseguro/'+codigo)   
@@ -31,7 +33,7 @@ export class ProdutosPage implements OnInit {
       this.produto = data;
       console.log(this.produto); 
          
-      this.navCtrl.setRoot(HomePage,{
+      this.navCtrl.push(HomePage,{
         'codigo': codigo,  
       });  
 
