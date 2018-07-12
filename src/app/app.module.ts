@@ -1,3 +1,4 @@
+import { SplashPage } from './../pages/splash/splash';
 import { ProdutosPage } from './../pages/produtos/produtos';
 import { PayPal } from '@ionic-native/paypal';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -22,6 +23,7 @@ import { Http, HttpModule } from '@angular/http';
     ContactPage,
     HomePage,
     ProdutosPage,
+    SplashPage,
     TabsPage
   ],
   imports: [
@@ -36,7 +38,8 @@ import { Http, HttpModule } from '@angular/http';
     ContactPage,
     HomePage,
     ProdutosPage,
-    TabsPage
+    TabsPage,
+    SplashPage
   ],
   providers: [
     PayPal,

@@ -11,6 +11,7 @@ import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails, PayPa
 })
 
 export class HomePage implements OnInit{
+  
   public codigo: any;
   public produto: any = {};
   public usuario: any = {};
@@ -35,6 +36,7 @@ export class HomePage implements OnInit{
  
 
   }//FIM CONSTRUTOR
+ 
 
   ngOnInit(){
      //SETANDO VALOR DO PRODUTO EM VARIAVEL DO PROVIDER
@@ -172,5 +174,7 @@ export class HomePage implements OnInit{
   }
 
   ///ENVIO DE E-MAIL APÓS COMPRA REALIZADA COM SUCESSO
-
+  
+ 
+ 
 }
