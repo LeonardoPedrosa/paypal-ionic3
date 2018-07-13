@@ -4,6 +4,8 @@ import { HttpServicesProvider } from './../../providers/http-services/http-servi
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails, PayPalItem} from '@ionic-native/paypal';
+import { Http } from '../../../node_modules/@angular/http';
+import xml2js from 'xml2js';
 
 @Component({
   selector: 'page-home',
@@ -21,13 +23,15 @@ export class HomePage implements OnInit{
   public valor_total: any;
   public favorito = 'favorito';
   public fretes = false;
+  public calculo: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public payPal: PayPal,
               public http: HttpServicesProvider,
               private alertCtrl: AlertController,
-              private toastCtrl: ToastController
+              private toastCtrl: ToastController,
+              public httpteste: Http
               ) {
 
   //PEGANDO CODIGO DO PRODUTO
@@ -100,6 +104,7 @@ export class HomePage implements OnInit{
 
     this.http.update('pagseguro/'+this.codigo, update)
       .subscribe(data => {
+        // this.ngOnInit();
        
     });
 
@@ -113,7 +118,7 @@ export class HomePage implements OnInit{
 
   alertaCompraEfetuada() {
     let alert = this.alertCtrl.create({
-      title: 'Olá, nome usuário',
+      title: 'OlÃ¡, nome usuÃ¡rio',
       subTitle: 'Sua compra foi efetuada com sucesso. Parabens! (:',
       buttons: ['Ok']
     });
@@ -176,9 +181,24 @@ export class HomePage implements OnInit{
 
   calcularFretes(){
     this.fretes = true;
+    this.httpteste.get('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=70002900&sCepDestino=04547000&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3')
+    .subscribe(data => {
+      this.calculo = data;
+      console.log(this.calculo._body)
+       xml2js.parseString(this.calculo._body, function (err, result) {
+        var valor = JSON.stringify(result.Servicos.cServico[0].Valor).replace(/[</>],/g, '{');
+        valor = JSON.parse(valor)
+        console.log(valor);
+        var prazo =  JSON.stringify(result.Servicos.cServico[0].PrazoEntrega).replace(/[</>],/g, '{');
+        prazo = JSON.parse(prazo)
+        console.log(prazo);
+      });
+     
+    });
+   
+    
   }
-
-  ///ENVIO DE E-MAIL APÓS COMPRA REALIZADA COM SUCESSO
+  ///ENVIO DE E-MAIL APÃS COMPRA REALIZADA COM SUCESSO
   
  
  

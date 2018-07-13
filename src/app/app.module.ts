@@ -46,7 +46,8 @@ import { Http, HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpServicesProvider
+    HttpServicesProvider,
+    
   ]
 })
 export class AppModule {}
