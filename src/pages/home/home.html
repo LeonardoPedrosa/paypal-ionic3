@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{produto.nome_produto}}</ion-title>
+    <ion-title [hidden]="div_dados != false">{{produto.nome_produto}}</ion-title>
+    <ion-title [hidden]="div_dados != true">Dados</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -27,8 +28,29 @@
             Quantidade: <button class="quant" (click)="quantMenos()">-</button>{{quant}}<button class="quant" (click)="quantMais()">+</button>
           </p>
           <p>
-            Total: <strong>R${{valor_total}},00</strong>
+           Total: <strong>R${{valor_total}},00</strong>
           </p>
+          <div class="frete">
+            <input placeholder="00000" type="number">
+            <input placeholder="000" type="number">
+            <button ion-button outline (click)="calcularFretes()">Calcular Frete</button>
+          </div>
+          
+          <div class="lista_fretes" [hidden]="fretes != true" >
+            <ul>
+              <li>
+                Frete 1<strong>R$50,00</strong>
+              </li>
+              <li>
+                Frete 2<strong>R$75,00</strong>
+              </li>
+              <li>
+                Frete 3<strong>R$10,00</strong>
+              </li>
+            </ul>
+
+          </div>
+
         </ion-card-content>
     </ion-card>
 
@@ -79,7 +101,7 @@
     </ion-card>
 
     <div class="btn fixed">
-      <button color="dark" ion-button (click)="comprar()">Efetuar pagamento</button>
+      <button color="dark" ion-button (click)="comprar()">Finalizar Compra</button>
       <button ion-button (click)="voltar()" outline>Voltar</button>
     </div>
   </div>

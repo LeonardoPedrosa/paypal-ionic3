@@ -20,6 +20,7 @@ export class HomePage implements OnInit{
   public alerta = false;
   public valor_total: any;
   public favorito = 'favorito';
+  public fretes = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -171,6 +172,10 @@ export class HomePage implements OnInit{
       buttons: ['Sim']
     });
     alert.present();
+  }
+
+  calcularFretes(){
+    this.fretes = true;
   }
 
   ///ENVIO DE E-MAIL APÓS COMPRA REALIZADA COM SUCESSO
