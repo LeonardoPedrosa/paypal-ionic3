@@ -31,8 +31,8 @@
            Total: <strong>R${{valor_total}},00</strong>
           </p>
           <div class="frete">
-            <input [(ngModel)]="cep_5" placeholder="00000" type="number" onKeyPress="if(this.value.length==5) return false;">
-            <input [(ngModel)]="cep_3" placeholder="000" type="number" onKeyPress="if(this.value.length==3) return false;">
+            <input [(ngModel)]="cep_5" placeholder="00000" type="text" onKeyPress="if(this.value.length==5) return false;">
+            <input [(ngModel)]="cep_3" placeholder="000" type="text" onKeyPress="if(this.value.length==3) return false;">
             <button ion-button outline (click)="calcularFretes()">Calcular Frete</button>
           </div>
           
@@ -83,6 +83,9 @@
     <!-- Dados usuario -->
     <ion-card>
         <h3>Seus dados:</h3>
+          <button ion-button icon-only (click)="presentPopover($event)" class="btn_popover">
+            <ion-icon name="create"></ion-icon>
+          </button>
           <ion-card-content>
                 <ul>
                   <li><p>Nome: <strong>{{usuario.nome}}</strong></p></li>
@@ -95,6 +98,9 @@
     <!-- Dados de endereço para entrega -->
     <ion-card>
         <h3>Endereço de entrega:</h3>
+          <button ion-button icon-only (click)="presentPopover($event)" class="btn_popover">
+            <ion-icon name="create"></ion-icon>
+          </button>
           <ion-card-content>
             <p>{{usuario.endereco}}</p>
             <p>{{usuario.bairro}}-{{usuario.cidade}}-{{usuario.estado}}</p>

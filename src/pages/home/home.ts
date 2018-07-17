@@ -121,7 +121,7 @@ export class HomePage implements OnInit{
 
   alertaCompraEfetuada() {
     let alert = this.alertCtrl.create({
-      title: 'OlÃ¡, nome usuÃ¡rio',
+      title: 'Olá, '+this.usuario.nome,
       subTitle: 'Sua compra foi efetuada com sucesso. Parabens! (:',
       buttons: ['Ok']
     });
@@ -186,7 +186,7 @@ export class HomePage implements OnInit{
     
     console.log(this.cep_5, this.cep_3);
     let self = this;
-    this.httpteste.get('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=70002900&sCepDestino='+this.cep_5+this.cep_3+'&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3')
+    this.httpteste.get('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=52010130&sCepDestino='+this.cep_5+this.cep_3+'&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3')
     .subscribe(data => {
      
        xml2js.parseString(data["_body"], function (err, result) {
@@ -207,7 +207,7 @@ export class HomePage implements OnInit{
    
   }
   
-  ///ENVIO DE E-MAIL APÃS COMPRA REALIZADA COM SUCESSO
+  ///ENVIO DE E-MAIL APÃÂS COMPRA REALIZADA COM SUCESSO
   
  
  
