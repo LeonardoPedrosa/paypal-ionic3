@@ -23,7 +23,10 @@ export class HomePage implements OnInit{
   public valor_total: any;
   public favorito = 'favorito';
   public fretes = false;
-  public calculo: any;
+  public valor_resultado: any;
+  public prazo: any;
+  public cep_5: any;
+  public cep_3: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -180,24 +183,30 @@ export class HomePage implements OnInit{
   }
 
   calcularFretes(){
-    this.fretes = true;
-    this.httpteste.get('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=70002900&sCepDestino=04547000&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3')
+    
+    console.log(this.cep_5, this.cep_3);
+    let self = this;
+    this.httpteste.get('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=70002900&sCepDestino='+this.cep_5+this.cep_3+'&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3')
     .subscribe(data => {
-      this.calculo = data;
-      console.log(this.calculo._body)
-       xml2js.parseString(this.calculo._body, function (err, result) {
-        var valor = JSON.stringify(result.Servicos.cServico[0].Valor).replace(/[</>],/g, '{');
-        valor = JSON.parse(valor)
-        console.log(valor);
-        var prazo =  JSON.stringify(result.Servicos.cServico[0].PrazoEntrega).replace(/[</>],/g, '{');
-        prazo = JSON.parse(prazo)
-        console.log(prazo);
-      });
      
+       xml2js.parseString(data["_body"], function (err, result) {
+        var valor = JSON.stringify(result.Servicos.cServico[0].Valor[0]).replace(/[</>],/g, '');
+        valor = JSON.parse(valor);
+        self.valor_resultado = valor;
+        console.log(valor);
+
+        var prazo =  JSON.stringify(result.Servicos.cServico[0].PrazoEntrega[0]).replace(/[</>],/g, '');
+        prazo = JSON.parse(prazo)
+        self.prazo = prazo;
+        console.log(prazo);
+       
+      });
+    
+      this.fretes = true;
     });
    
-    
   }
+  
   ///ENVIO DE E-MAIL APÃS COMPRA REALIZADA COM SUCESSO
   
  

@@ -31,8 +31,8 @@
            Total: <strong>R${{valor_total}},00</strong>
           </p>
           <div class="frete">
-            <input placeholder="00000" type="number" onKeyPress="if(this.value.length==5) return false;">
-            <input placeholder="000" type="number" onKeyPress="if(this.value.length==3) return false;">
+            <input [(ngModel)]="cep_5" placeholder="00000" type="number" onKeyPress="if(this.value.length==5) return false;">
+            <input [(ngModel)]="cep_3" placeholder="000" type="number" onKeyPress="if(this.value.length==3) return false;">
             <button ion-button outline (click)="calcularFretes()">Calcular Frete</button>
           </div>
           
@@ -40,14 +40,14 @@
             <ul>
                
               <li>
-                Frete 1<strong>R$50,00</strong><input type="radio" value="1" name="frete">
+                Frete<strong>R${{valor_resultado}}</strong>Prazo<strong>{{prazo}} dias</strong><input type="radio" value="1" name="frete">
               </li>
-              <li>
+              <!-- <li>
                 Frete 2<strong>R$75,00</strong><input type="radio" value="2" name="frete">
               </li>
               <li>
                 Frete 3<strong>R$10,00</strong><input type="radio" value="3" name="frete">
-              </li>
+              </li> -->
               
             </ul>
             
