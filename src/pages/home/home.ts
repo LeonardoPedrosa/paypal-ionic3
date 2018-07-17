@@ -27,6 +27,7 @@ export class HomePage implements OnInit{
   public prazo: any;
   public cep_5: any;
   public cep_3: any;
+  public editar_id: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -47,6 +48,7 @@ export class HomePage implements OnInit{
  
 
   ngOnInit(){
+   this.editar_id = '';
      //SETANDO VALOR DO PRODUTO EM VARIAVEL DO PROVIDER
    this.http.get('pagseguro/'+this.codigo)   
    .subscribe(data => {
@@ -206,6 +208,22 @@ export class HomePage implements OnInit{
     });
    
   }
+
+  editar(id) {
+        
+    if(id == 'dados_usuario'){
+      this.editar_id = 'dados_usuario';
+      console.log("CLICK EDICAO USUARIO");
+
+    }else if(id == 'endereco_entrega'){
+      this.editar_id = 'endereco_entrega';
+      console.log("CLICK ENDERECO ENTREGA");
+    }
+ }
+
+ salvar(){
+   this.editar_id = '';
+ }
   
   ///ENVIO DE E-MAIL APÃÂS COMPRA REALIZADA COM SUCESSO
   

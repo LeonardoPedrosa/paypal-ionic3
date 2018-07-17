@@ -20,9 +20,9 @@
             {{produto.descricao_produto}}
           </p>
           <p>
-            Quantidade disponível: {{produto.quantidade_disponivel}} 
+            Quantidade disponÃ­vel: {{produto.quantidade_disponivel}} 
           <p>
-            Preço: <strong>R${{produto.preco_produto}},00</strong>
+            PreÃ§o: <strong>R${{produto.preco_produto}},00</strong>
           </p>
           <p>
             Quantidade: <button class="quant" (click)="quantMenos()">-</button>{{quant}}<button class="quant" (click)="quantMais()">+</button>
@@ -82,23 +82,41 @@
 
     <!-- Dados usuario -->
     <ion-card>
-        <h3>Seus dados:</h3>
-          <button ion-button icon-only (click)="presentPopover($event)" class="btn_popover">
-            <ion-icon name="create"></ion-icon>
-          </button>
-          <ion-card-content>
+        <div [hidden]="editar_id != ''">
+          <h3>Seus dados:</h3>
+            <button ion-button icon-only (click)="editar('dados_usuario')" class="btn_popover" >
+              <ion-icon name="create"></ion-icon>
+            </button>
+            <ion-card-content>
+                  <ul>
+                    <li><p>Nome: <strong>{{usuario.nome}}</strong></p></li>
+                    <li><p>E-mail: <strong>{{usuario.email}}</strong></p></li>
+                    <li><p>Telefone: <strong>{{usuario.telefone}}</strong></p></li>
+                  </ul>
+            </ion-card-content>
+          </div>
+        
+        <!-- DIV PARA EDIÇÃO DE DADOS -->
+        <div [hidden]="editar_id != 'dados_usuario'">
+          <h3>Editar seus dados:</h3>
+            <ion-card-content>
                 <ul>
                   <li><p>Nome: <strong>{{usuario.nome}}</strong></p></li>
                   <li><p>E-mail: <strong>{{usuario.email}}</strong></p></li>
                   <li><p>Telefone: <strong>{{usuario.telefone}}</strong></p></li>
                 </ul>
+                <div class="btn">
+                  <button ion-button (click)="salvar()">Salvar alterações</button>
+                </div>
           </ion-card-content>
+        </div>
     </ion-card>
 
-    <!-- Dados de endereço para entrega -->
+    <!-- Dados de endereÃ§o para entrega -->
     <ion-card>
+      <div [hidden]="editar_id != ''">
         <h3>Endereço de entrega:</h3>
-          <button ion-button icon-only (click)="presentPopover($event)" class="btn_popover">
+          <button ion-button icon-only (click)="editar('endereco_entrega')" class="btn_popover">
             <ion-icon name="create"></ion-icon>
           </button>
           <ion-card-content>
@@ -106,6 +124,21 @@
             <p>{{usuario.bairro}}-{{usuario.cidade}}-{{usuario.estado}}</p>
             <p>{{usuario.cep}}</p>
           </ion-card-content>
+      </div>
+
+       <!-- DIV PARA EDIÇÃO DE ENDEREÇO DE ENTREGA-->
+       <div [hidden]="editar_id != 'endereco_entrega'">
+          <h3>Editar endereeço de entrega:</h3>
+            <ion-card-content>
+              <p>{{usuario.endereco}}</p>
+              <p>{{usuario.bairro}}-{{usuario.cidade}}-{{usuario.estado}}</p>
+              <p>{{usuario.cep}}</p>
+            
+                <div class="btn">
+                  <button ion-button (click)="salvar()">Salvar alterações</button>
+                </div>
+          </ion-card-content>
+        </div>
     </ion-card>
 
     <div class="btn fixed">
