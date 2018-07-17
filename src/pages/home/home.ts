@@ -222,7 +222,6 @@ export class HomePage implements OnInit{
  }
 
  salvar(){
-   this.editar_id = '';
    let update ={
       nome: this.usuario.nome,
       endereco: this.usuario.endereco,
@@ -238,6 +237,8 @@ export class HomePage implements OnInit{
 
   this.http.update('usuario/1', update)
     .subscribe(data => {
+      this.editar_id = '';
+      this.presentToast("Dados editados com sucesso.")
       // this.ngOnInit();
      
   });
