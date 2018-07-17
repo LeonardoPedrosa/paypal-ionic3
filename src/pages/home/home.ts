@@ -223,6 +223,24 @@ export class HomePage implements OnInit{
 
  salvar(){
    this.editar_id = '';
+   let update ={
+      nome: this.usuario.nome,
+      endereco: this.usuario.endereco,
+      email: this.usuario.email,
+      telefone: this.usuario.telefone,
+      sexo: this.usuario.sexo,
+      cpf: this.usuario.cpf,
+      nascimento: this.usuario.nascimento,
+      bairro: this.usuario.bairro,
+      cidade: this.usuario.cidade,
+      cep: this.usuario.cep,
+  }
+
+  this.http.update('usuario/1', update)
+    .subscribe(data => {
+      // this.ngOnInit();
+     
+  });
  }
   
   ///ENVIO DE E-MAIL APÃÂS COMPRA REALIZADA COM SUCESSO
