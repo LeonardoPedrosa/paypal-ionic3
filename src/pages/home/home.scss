@@ -6,7 +6,7 @@ ion-card img{width: 60%; margin: 0 auto}
 .quant{width: 35px;height: 35px;background: #399b1f; font-size: 20px; color:white; margin: 0 10px}
 .card{position: relative}
 ul{padding: 0}
-li{display: block}
+li{display: flex; align-items: center}
 .item{padding-left: 0 !important}
 .card h3{border: 1px solid gray; text-align: center; padding: 10px 0;text-transform: uppercase; background: black; color:white}
 .fixed{display: table; width: 100%; bottom: 0; background: white; position: fixed;box-shadow: 0px -1px 1px 0px;padding: 5px;}
@@ -21,4 +21,14 @@ input[type="text"] {
 .lista_fretes ul li{display: flex; justify-content: space-around; margin: 10px 0; align-items: center}
 .lista_fretes ul{padding: 0; border: 1px solid #ddd6d6; border-radius: 5px;}
 .btn_popover{position: absolute; right: 0;background: transparent; color: black;box-shadow: none;}
+li.editar input {
+    width: 100;
+    width: 100%;
+    border: 1px solid;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 15px
+}
+li.editar{margin-bottom: 15px}
+li.editar p{width: 30%}
 }

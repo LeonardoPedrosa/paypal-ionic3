@@ -101,9 +101,9 @@
           <h3>Editar seus dados:</h3>
             <ion-card-content>
                 <ul>
-                  <li><p>Nome: <strong>{{usuario.nome}}</strong></p></li>
-                  <li><p>E-mail: <strong>{{usuario.email}}</strong></p></li>
-                  <li><p>Telefone: <strong>{{usuario.telefone}}</strong></p></li>
+                  <li class="editar"><p>Nome:</p> <input [(ngModel)]="usuario.nome"></li>
+                  <li class="editar"><p>E-mail:</p> <input [(ngModel)]="usuario.email"></li>
+                  <li class="editar"><p>Telefone:</p> <input [(ngModel)]="usuario.telefone"></li>
                 </ul>
                 <div class="btn">
                   <button ion-button (click)="salvar()">Salvar alterações</button>
