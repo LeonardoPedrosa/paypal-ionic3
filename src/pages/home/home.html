@@ -20,9 +20,9 @@
             {{produto.descricao_produto}}
           </p>
           <p>
-            Quantidade disponÃ­vel: {{produto.quantidade_disponivel}} 
+            Quantidade disponível: {{produto.quantidade_disponivel}} 
           <p>
-            PreÃ§o: <strong>R${{produto.preco_produto}},00</strong>
+            Preço: <strong>R${{produto.preco_produto}},00</strong>
           </p>
           <p>
             Quantidade: <button class="quant" (click)="quantMenos()">-</button>{{quant}}<button class="quant" (click)="quantMais()">+</button>
@@ -58,11 +58,15 @@
 
   <div class="btn">
       <button color="dark" ion-button (click)="dados()" [hidden]="div_dados != false">Comprar</button>
+      <button ion-button (click)="adicionarSacola(produto.codigo)" [hidden]="div_dados != false" outline>Adicionar a sacola</button>
     
   </div>
 
+<!-- BOTÕES PARA TESTE
+
   <button (click)="quantidade()">qntTeste</button>
-  <button (click)="item()">itemTeste</button>
+  <button (click)="item()">itemTeste</button> 
+  <button (click)="clearSacola()">clearSacola</button>-->
 
   <div class="dados_usuario" [hidden]="div_dados != true">
     <!-- Dados produto -->
@@ -142,7 +146,7 @@
     </ion-card>
 
     <div class="btn fixed">
-      <button color="dark" ion-button (click)="comprar()">Finalizar Compra</button>
+      <button color="dark" ion-button (click)="comprar()" [disabled]="editar_id != ''">Finalizar Compra</button>
       <button ion-button (click)="voltar()" outline>Voltar</button>
     </div>
   </div>

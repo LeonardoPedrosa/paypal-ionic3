@@ -28,6 +28,7 @@ export class HomePage implements OnInit{
   public cep_5: any;
   public cep_3: any;
   public editar_id: any;
+  public sacola: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -43,7 +44,7 @@ export class HomePage implements OnInit{
   this.codigo  = this.navParams.get('codigo');
   console.log(this.codigo);
 
- 
+   
 
   }//FIM CONSTRUTOR
  
@@ -71,7 +72,7 @@ export class HomePage implements OnInit{
     })
 
   }
-   
+
   comprar(){
     this.payPal.init({
       PayPalEnvironmentProduction: '',
@@ -171,8 +172,13 @@ export class HomePage implements OnInit{
   }
 
   voltar(){
-    this.div_dados = false;
-    this.editar_id = '';
+    //condição para caso o usuario esteja editando informações
+    if(this.editar_id != ''){
+      this.editar_id = '';
+    }else{
+      this.div_dados = false;
+      this.editar_id = '';
+    }
   }
 
   alertaDados() {
@@ -247,6 +253,26 @@ export class HomePage implements OnInit{
   }else if(this.editar_id == 'endereco_entrega'){
     this.editar_id = '';
   }
+ }
+
+ adicionarSacola(codigo){
+    
+    this.sacola = localStorage.getItem("session");// Recupera os dados armazenados
+    this.sacola = JSON.parse(this.sacola); // Converte string para objeto
+    if(this.sacola == null) // Caso não haja conteúdo, iniciamos um vetor vazio
+    this.sacola = [];
+    this.add(codigo);
+ }
+
+ add(codigo){
+    this.sacola.push(codigo);
+    localStorage.setItem("session", JSON.stringify(this.sacola));
+    this.presentToast(this.produto.nome_produto+ ", adicionado a sua sacola.")
+    return true;
+ }
+
+ clearSacola(){
+  localStorage.removeItem("session");
  }
   
   ///ENVIO DE E-MAIL APÃÂS COMPRA REALIZADA COM SUCESSO
