@@ -8,6 +8,14 @@
 
 
 <ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+         
+          refreshingSpinner="circles"
+          refreshingText="Carregando...">
+        </ion-refresher-content>
+      </ion-refresher>
     
         <ion-card  class="lista" *ngFor="let p of produtos">
           <div class="info">

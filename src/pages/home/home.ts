@@ -172,6 +172,7 @@ export class HomePage implements OnInit{
 
   voltar(){
     this.div_dados = false;
+    this.editar_id = '';
   }
 
   alertaDados() {
@@ -222,26 +223,30 @@ export class HomePage implements OnInit{
  }
 
  salvar(){
-   let update ={
-      nome: this.usuario.nome,
-      endereco: this.usuario.endereco,
-      email: this.usuario.email,
-      telefone: this.usuario.telefone,
-      sexo: this.usuario.sexo,
-      cpf: this.usuario.cpf,
-      nascimento: this.usuario.nascimento,
-      bairro: this.usuario.bairro,
-      cidade: this.usuario.cidade,
-      cep: this.usuario.cep,
-  }
+   if(this.editar_id == 'dados_usuario'){
+      let update ={
+          nome: this.usuario.nome,
+          endereco: this.usuario.endereco,
+          email: this.usuario.email,
+          telefone: this.usuario.telefone,
+          sexo: this.usuario.sexo,
+          cpf: this.usuario.cpf,
+          nascimento: this.usuario.nascimento,
+          bairro: this.usuario.bairro,
+          cidade: this.usuario.cidade,
+          cep: this.usuario.cep,
+      }
 
-  this.http.update('usuario/1', update)
-    .subscribe(data => {
-      this.editar_id = '';
-      this.presentToast("Dados editados com sucesso.")
-      // this.ngOnInit();
-     
-  });
+      this.http.update('usuario/1', update)
+        .subscribe(data => {
+          this.editar_id = '';
+          this.presentToast("Dados editados com sucesso.")
+          // this.ngOnInit();
+        
+      });
+  }else if(this.editar_id == 'endereco_entrega'){
+    this.editar_id = '';
+  }
  }
   
   ///ENVIO DE E-MAIL APÃÂS COMPRA REALIZADA COM SUCESSO

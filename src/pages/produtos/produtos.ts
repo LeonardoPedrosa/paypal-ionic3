@@ -26,7 +26,7 @@ export class ProdutosPage{
     });
   }
   
-  //PEGANDO O CODIGO DO PRODUTO E REPASSANDO PARA PRÓXIMA ETAPA
+  //PEGANDO O CODIGO DO PRODUTO E REPASSANDO PARA PRï¿½XIMA ETAPA
   getInfoProduto(codigo){ 
     this.http.get('pagseguro/'+codigo)   
     .subscribe(data => {
@@ -38,7 +38,20 @@ export class ProdutosPage{
       });  
 
     });
-  
+    
+  }
+  doRefresh(refresher) {
+    this.http.get('pagseguro')   
+    .subscribe(data => {
+      this.produtos = data;
+      console.log(this.produtos);     
+      refresher.complete();  
+    });
+
+    // setTimeout(() => {
+    //   console.log('Async operation has ended');
+    //   refresher.complete();
+    // }, 2000);
   }
 
 }
