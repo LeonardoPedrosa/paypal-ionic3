@@ -2,7 +2,7 @@ import { ProdutosPage } from './../produtos/produtos';
 import { HttpServicesProvider } from './../../providers/http-services/http-services';
 
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails, PayPalItem} from '@ionic-native/paypal';
 import { Http } from '../../../node_modules/@angular/http';
 import xml2js from 'xml2js';
@@ -35,7 +35,8 @@ export class HomePage implements OnInit{
               public http: HttpServicesProvider,
               private alertCtrl: AlertController,
               private toastCtrl: ToastController,
-              public httpteste: Http
+              public httpteste: Http,
+              public loadingCtrl: LoadingController
               ) {
 
   //PEGANDO CODIGO DO PRODUTO
@@ -49,17 +50,17 @@ export class HomePage implements OnInit{
 
   ngOnInit(){
    this.editar_id = '';
-     //SETANDO VALOR DO PRODUTO EM VARIAVEL DO PROVIDER
-   this.http.get('pagseguro/'+this.codigo)   
-   .subscribe(data => {
-     this.produto = data;
-     console.log(this.produto);  
-     this.valor_total = this.produto.preco_produto; 
-     // this.pagseg.dados.amount = this.produto.preco_produto; 
-     // this.pagseg.dados.codigo_produto = this.codigo;
-     // this.pagseg.dados.nome_produto = this.produto.nome_produto;
-     // this.pagseg.dados.preco_produto = this.produto.preco_produto+'.00';
-     // console.log(this.pagseg.dados.preco_produto)
+    //SETANDO VALOR DO PRODUTO EM VARIAVEL DO PROVIDER
+    let loading = this.loadingCtrl.create({
+      content: 'Carregando...'
+    });
+    loading.present();
+    this.http.get('pagseguro/'+this.codigo)   
+     .subscribe(data => {
+      this.produto = data;
+      console.log(this.produto);  
+      this.valor_total = this.produto.preco_produto; 
+      loading.dismiss();
    });
 
    //CHAMANDO DADOS DO USUARIO
@@ -70,8 +71,7 @@ export class HomePage implements OnInit{
     })
 
   }
-
- 
+   
   comprar(){
     this.payPal.init({
       PayPalEnvironmentProduction: '',
