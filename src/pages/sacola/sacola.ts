@@ -31,7 +31,7 @@ export class SacolaPage {
   }
 
   comprar(){
-    this.navCtrl.push(HomePage, {'sacola':true});
+    this.navCtrl.push(HomePage, {'sacola':true, 'pg': 'sacola'});
   }
 
 }

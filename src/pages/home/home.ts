@@ -29,6 +29,7 @@ export class HomePage implements OnInit{
   public cep_3: any;
   public editar_id: any;
   public sacola: any;
+  public pag: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -47,6 +48,11 @@ export class HomePage implements OnInit{
   const sacola = this.navParams.get('sacola');
   if(sacola != undefined){
     this.div_dados = sacola;
+  }
+
+  const pag = this.navParams.get('pg');
+  if(pag != undefined){
+    this.pag = pag;
   }
 
   }//FIM CONSTRUTOR
@@ -178,7 +184,11 @@ export class HomePage implements OnInit{
     //condição para caso o usuario esteja editando informações
     if(this.editar_id != ''){
       this.editar_id = '';
-    }else{
+    }
+    else if(this.pag == 'sacola'){
+      this.navCtrl.setRoot(ProdutosPage);
+    }
+    else{
       this.div_dados = false;
       this.editar_id = '';
     }
