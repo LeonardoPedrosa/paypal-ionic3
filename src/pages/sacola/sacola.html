@@ -1,0 +1,36 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Sacola</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="assets/imgs/produto.png">
+          </ion-thumbnail>
+          <h2>My Neighbor Totoro</h2>
+          <p>Hayao Miyazaki • 1988</p>
+          <button ion-button clear item-end (click)="retirarProduto()"><img src="assets/icon/delete.png"></button>
+        </ion-item>
+        <ion-item>
+            <ion-thumbnail item-start>
+              <img src="assets/imgs/produto.png">
+            </ion-thumbnail>
+            <h2>My Neighbor Totoro</h2>
+            <p>Hayao Miyazaki • 1988</p>
+            <button ion-button clear item-end><img src="assets/icon/delete.png"></button>
+        </ion-item>
+      </ion-list>
+
+
+      <div class="btn">
+          <button color="dark" ion-button (click)="comprar()" >Comprar</button>
+      </div>
+    
+
+</ion-content>

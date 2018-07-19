@@ -1,3 +1,4 @@
+import { SacolaPage } from './../pages/sacola/sacola';
 import { SplashPage } from './../pages/splash/splash';
 import { ProdutosPage } from './../pages/produtos/produtos';
 import { PayPal } from '@ionic-native/paypal';
@@ -24,7 +25,8 @@ import { Http, HttpModule } from '@angular/http';
     HomePage,
     ProdutosPage,
     SplashPage,
-    TabsPage
+    TabsPage,
+    SacolaPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { Http, HttpModule } from '@angular/http';
     HomePage,
     ProdutosPage,
     TabsPage,
-    SplashPage
+    SplashPage,
+    SacolaPage
   ],
   providers: [
     PayPal,

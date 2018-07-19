@@ -43,8 +43,11 @@ export class HomePage implements OnInit{
   //PEGANDO CODIGO DO PRODUTO
   this.codigo  = this.navParams.get('codigo');
   console.log(this.codigo);
-
-   
+  
+  const sacola = this.navParams.get('sacola');
+  if(sacola != undefined){
+    this.div_dados = sacola;
+  }
 
   }//FIM CONSTRUTOR
  

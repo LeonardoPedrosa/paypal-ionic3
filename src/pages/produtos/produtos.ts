@@ -1,3 +1,4 @@
+import { SacolaPage } from './../sacola/sacola';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpServicesProvider } from './../../providers/http-services/http-services';
@@ -12,13 +13,22 @@ export class ProdutosPage{
 
   public produtos: any;
   public produto: any;
+  public nProdutos: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public http: HttpServicesProvider) {
+    
     
   }
 
   //METODO PARA DAR REFRESH SEMPRE QUE INICIAR A PAGINA
   ionViewDidEnter(){
+    const data = JSON.parse(localStorage.getItem('session'));
+    if(data != null){
+      this.nProdutos = data.length;
+      console.log(data.length);
+    }
+
+    //LISTANDO PRODUTOS
     this.http.get('pagseguro')   
     .subscribe(data => {
       this.produtos = data;
@@ -52,6 +62,10 @@ export class ProdutosPage{
     //   console.log('Async operation has ended');
     //   refresher.complete();
     // }, 2000);
+  }
+
+  sacola(){
+    this.navCtrl.push(SacolaPage);
   }
 
 }
