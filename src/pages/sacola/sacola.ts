@@ -11,6 +11,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 export class SacolaPage {
 
   public produtos: any;
+  public total = 0;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -21,6 +22,7 @@ export class SacolaPage {
   ionViewDidEnter() {
     const data = JSON.parse(localStorage.getItem('session'));
     this.produtos = data;
+    this.somar();
 
     console.log(this.produtos);
   }
@@ -52,16 +54,28 @@ export class SacolaPage {
 
   removeItem(codigo) {
     var index = -1;
-    var obj = JSON.parse(localStorage.getItem('session')) || {}; //fetch cart from storage
-    var items = obj || []; //get the products
-    for (var i = 0; i < items.length; i++) { //loop over the collection
-      if (items[i].codigo === codigo) { //see if ids match
-        items.splice(i, 1); //remove item from array
+    var obj = JSON.parse(localStorage.getItem('session')) || {}; //chamando a lista
+    var items = obj || []; //chamando a lista
+    for (var i = 0; i < items.length; i++) { //loop para pecorrer o array
+      if (items[i].codigo === codigo) { //checando o codigo
+        items.splice(i, 1); //remove item do array
         break; //exit loop
       }
     }
-    localStorage.setItem('session', JSON.stringify(obj)); //set item back into storage
+    localStorage.setItem('session', JSON.stringify(obj)); 
+    this.total = 0;
     this.ionViewDidEnter();
+  }
+
+  somar(){
+    var obj = JSON.parse(localStorage.getItem('session'));
+    for(var i =0; i< obj.length; i++){
+      this.total+= parseInt(obj[i].valor_total);
+      
+    }
+    
+    console.log(this.total);
+    
   }
 
   comprar(){
