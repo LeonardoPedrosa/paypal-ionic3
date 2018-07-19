@@ -4,11 +4,11 @@ page-produtos {
     .toolbar-content{display: flex}
     ion-fab{margin: 10px; right: 0; }
     .fab {background: white}
-    img.sacola{position: absolute;}
-    .badge{bottom: 10px;
-        position: relative;
-        left: 10px;
+    // img.sacola{position: absolute;}
+    .badge{top: 10px;
+        position: absolute;
         padding: 3px;
+        right: 10px;
     }
    
 }

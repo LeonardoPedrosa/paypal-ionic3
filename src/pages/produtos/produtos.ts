@@ -23,11 +23,15 @@ export class ProdutosPage{
   //METODO PARA DAR REFRESH SEMPRE QUE INICIAR A PAGINA
   ionViewDidEnter(){
     const data = JSON.parse(localStorage.getItem('session'));
+    console.log(data);
     if(data != null){
       this.nProdutos = data.length;
+      if(this.nProdutos == 0 ){
+        localStorage.removeItem("session");
+        this.nProdutos = null;
+      }
       console.log(data.length);
     }
-
     //LISTANDO PRODUTOS
     this.http.get('pagseguro')   
     .subscribe(data => {

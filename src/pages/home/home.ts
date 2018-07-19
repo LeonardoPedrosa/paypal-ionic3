@@ -117,12 +117,16 @@ export class HomePage implements OnInit{
         merchantPrivacyPolicyURL: '',
         merchantUserAgreementURL: ''
       })).then(() => {
+        if(this.produto.nome_produto == undefined){
+          this.produto.nome_produto = 'Total'
+        }
        
         let details = new PayPalPaymentDetails(this.valor_total+'.00', '0.00', '0.00'); //especializar
         let payment = new PayPalPayment(this.valor_total, 'BRL', this.produto.nome_produto, 'Sale', details); //especializar
         this.payPal.renderSinglePaymentUI(payment).then((response) =>{
         //resposta para caso pagamento seja efetuado com sucesso
          this.quantidade();         
+         this.clearSacola();
          this.navCtrl.setRoot(ProdutosPage);
          this.alertaCompraEfetuada();
 

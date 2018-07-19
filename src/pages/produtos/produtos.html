@@ -8,7 +8,7 @@
 
 <ion-content>
     <ion-fab>
-        <button ion-fab (click)="sacola()"><img class="sacola" src="assets/icon/sacola.png"/><ion-badge item-end color="danger">{{nProdutos}}</ion-badge></button>
+        <button ion-fab (click)="sacola()" [disabled]="nProdutos == null"><img class="sacola" src="assets/icon/sacola.png"/><ion-badge item-end color="danger">{{nProdutos}}</ion-badge></button>
     </ion-fab>
 
     <ion-refresher (ionRefresh)="doRefresh($event)">
