@@ -30,6 +30,7 @@ export class HomePage implements OnInit{
   public editar_id: any;
   public sacola: any;
   public pag: any;
+  public valor_produto: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -69,7 +70,9 @@ export class HomePage implements OnInit{
      .subscribe(data => {
       this.produto = data;
       console.log(this.produto);  
+      this.valor_produto = this.produto.preco_produto;
       this.valor_total = this.produto.preco_produto; 
+      
       loading.dismiss();
    });
 
@@ -268,17 +271,22 @@ export class HomePage implements OnInit{
   }
  }
 
- adicionarSacola(codigo){
-    
+ adicionarSacola(codigo, nome, valor, qtd, valor_total){
+    valor = this.valor_produto;
+    qtd = this.quant;
+    valor_total = this.valor_total;
     this.sacola = localStorage.getItem("session");// Recupera os dados armazenados
     this.sacola = JSON.parse(this.sacola); // Converte string para objeto
     if(this.sacola == null) // Caso não haja conteúdo, iniciamos um vetor vazio
     this.sacola = [];
-    this.add(codigo);
+    this.add(codigo, nome, valor, qtd, valor_total);
  }
 
- add(codigo){
-    this.sacola.push(codigo);
+ add(codigo, nome, valor, qtd, valor_total){
+    valor = this.valor_produto;
+    qtd = this.quant;
+    valor_total = this.valor_total;
+    this.sacola.push({codigo: codigo, nome: nome, valor: valor, qtd: qtd, valor_total: valor_total});
     localStorage.setItem("session", JSON.stringify(this.sacola));
     this.presentToast(this.produto.nome_produto+ ", adicionado a sua sacola.")
     return true;

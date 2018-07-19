@@ -9,24 +9,18 @@
 
 <ion-content>
     <ion-list>
-        <ion-item>
+        <ion-item *ngFor="let p of produtos">
           <ion-thumbnail item-start>
             <img src="assets/imgs/produto.png">
           </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
-          <button ion-button clear item-end (click)="retirarProduto()"><img src="assets/icon/delete.png"></button>
+          <h2>{{p.nome}}</h2>
+          <p>{{p.qtd}} x R${{p.valor}}</p>
+          <p>Total: <strong>R${{p.valor_total}},00</strong></p>
+          <button ion-button clear item-end (click)="retirarProduto(p.codigo)"><img src="assets/icon/delete.png"></button>
         </ion-item>
-        <ion-item>
-            <ion-thumbnail item-start>
-              <img src="assets/imgs/produto.png">
-            </ion-thumbnail>
-            <h2>My Neighbor Totoro</h2>
-            <p>Hayao Miyazaki • 1988</p>
-            <button ion-button clear item-end><img src="assets/icon/delete.png"></button>
-        </ion-item>
+       
       </ion-list>
-
+      <h3>Total:<strong></strong></h3>
 
       <div class="btn">
           <button color="dark" ion-button (click)="comprar()" >Comprar</button>
