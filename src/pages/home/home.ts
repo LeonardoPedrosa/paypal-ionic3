@@ -30,6 +30,8 @@ export class HomePage implements OnInit{
   public editar_id: any;
   public sacola: any;
   public pag: any;
+  public vlr_total: any;
+  public qtd: any;
   // public valor_produto: number;
 
   constructor(public navCtrl: NavController,
@@ -56,33 +58,50 @@ export class HomePage implements OnInit{
     this.pag = pag;
   }
 
+  const vlr_total = this.navParams.get('vl_total');
+  if(vlr_total != undefined){
+    this.vlr_total = vlr_total;
+    console.log(this.vlr_total)
+  }
+
+  const qtd = this.navParams.get('qtd');
+  if(qtd != undefined){
+    this.qtd = qtd;
+  }
+
   }//FIM CONSTRUTOR
  
 
   ngOnInit(){
+  //CHAMANDO DADOS DO USUARIO
+   this.http.get('usuario/1')
+   .subscribe(data =>{
+     this.usuario = data;
+     console.log(this.usuario);
+   })
+
    this.editar_id = '';
     //SETANDO VALOR DO PRODUTO EM VARIAVEL DO PROVIDER
     let loading = this.loadingCtrl.create({
       content: 'Carregando...'
     });
     loading.present();
+    if(this.codigo == undefined){
+      this.valor_total = this.vlr_total;
+      this.quant = this.qtd;
+      loading.dismiss();
+    }else{
     this.http.get('pagseguro/'+this.codigo)   
      .subscribe(data => {
       this.produto = data;
       console.log(this.produto);  
       // this.valor_produto = this.produto.preco_produto;
       this.valor_total = this.produto.preco_produto; 
-      
+           
       loading.dismiss();
-   });
-
-   //CHAMANDO DADOS DO USUARIO
-   this.http.get('usuario/1')
-    .subscribe(data =>{
-      this.usuario = data;
-      console.log(this.usuario);
-    })
-
+     
+      });
+    }
   }
 
   comprar(){

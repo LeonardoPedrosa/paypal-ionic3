@@ -12,6 +12,7 @@ export class SacolaPage {
 
   public produtos: any;
   public total = 0;
+  public qtd = 0;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -71,15 +72,24 @@ export class SacolaPage {
     var obj = JSON.parse(localStorage.getItem('session'));
     for(var i =0; i< obj.length; i++){
       this.total+= parseInt(obj[i].valor_total);
+      this.qtd+= parseInt(obj[i].qtd);
       
     }
     
     console.log(this.total);
+    console.log(this.qtd);
     
   }
 
   comprar(){
-    this.navCtrl.push(HomePage, {'sacola':true, 'pg': 'sacola'});
+    this.navCtrl.push(HomePage, 
+      {
+        'sacola':true, 
+        'pg': 'sacola', 
+        'qtd': this.qtd,
+        'vl_total': this.total  
+      
+      });
   }
 
 }
