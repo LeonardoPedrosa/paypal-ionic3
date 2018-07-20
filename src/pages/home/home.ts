@@ -24,7 +24,9 @@ export class HomePage implements OnInit{
   public favorito = 'favorito';
   public fretes = false;
   public valor_resultado: any;
+  public valor_resultado_sedex: any;
   public prazo: any;
+  public prazo_sedex: any;
   public cep_5: any;
   public cep_3: any;
   public editar_id: any;
@@ -138,7 +140,7 @@ export class HomePage implements OnInit{
     })
   }
 
-  quantidade(){
+  quantidade(){ //melhorar
     let update ={
       quantidade_disponivel: this.produto.quantidade_disponivel - this.quant,
     }
@@ -230,13 +232,36 @@ export class HomePage implements OnInit{
     alert.present();
   }
 
+  sedex(){
+    let self = this;
+    this.httpteste.get('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=52010130&sCepDestino='+this.cep_5+this.cep_3+'&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=40010&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3')
+    .subscribe(data => {
+     
+       xml2js.parseString(data["_body"], function (err, result) {
+        var valor = JSON.stringify(result.Servicos.cServico[0].Valor[0]).replace(/[</>],/g, '');
+        valor = JSON.parse(valor);
+        self.valor_resultado_sedex = valor;
+        console.log(valor);
+
+        var prazo =  JSON.stringify(result.Servicos.cServico[0].PrazoEntrega[0]).replace(/[</>],/g, '');
+        prazo = JSON.parse(prazo)
+        self.prazo_sedex = prazo;
+        console.log(prazo);
+       
+      });
+    
+      this.fretes = true;
+    });
+
+  }
+
   calcularFretes(){
     
     console.log(this.cep_5, this.cep_3);
     let self = this;
-    this.httpteste.get('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=52010130&sCepDestino='+this.cep_5+this.cep_3+'&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3')
+    this.httpteste.get('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=52010130&sCepDestino='+this.cep_5+this.cep_3+'&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=41106&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3')
     .subscribe(data => {
-     
+      
        xml2js.parseString(data["_body"], function (err, result) {
         var valor = JSON.stringify(result.Servicos.cServico[0].Valor[0]).replace(/[</>],/g, '');
         valor = JSON.parse(valor);
@@ -249,8 +274,9 @@ export class HomePage implements OnInit{
         console.log(prazo);
        
       });
-    
+      this.sedex();
       this.fretes = true;
+
     });
    
   }

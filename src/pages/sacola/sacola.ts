@@ -25,11 +25,10 @@ export class SacolaPage {
     const data = JSON.parse(localStorage.getItem('session'));
     this.produtos = data;
     this.somar();
+    
     if(this.produtos.length == 0){
       this.navCtrl.setRoot(ProdutosPage);
     }
-    
-
     console.log(this.produtos);
   }
 
