@@ -1,3 +1,4 @@
+import { ProdutosPage } from './../produtos/produtos';
 import { HttpServicesProvider } from './../../providers/http-services/http-services';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
@@ -24,6 +25,10 @@ export class SacolaPage {
     const data = JSON.parse(localStorage.getItem('session'));
     this.produtos = data;
     this.somar();
+    if(this.produtos.length == 0){
+      this.navCtrl.setRoot(ProdutosPage);
+    }
+    
 
     console.log(this.produtos);
   }
@@ -45,6 +50,7 @@ export class SacolaPage {
             text: 'Sim',
             handler: () => {
               this.removeItem(codigo);
+              
             }
           }
         ]
